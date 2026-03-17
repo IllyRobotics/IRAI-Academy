@@ -1116,6 +1116,69 @@
         .animate-in {
             animation: slideInUp 0.6s ease-out;
         }
+
+        /* Hollow effect on hover */
+        .hollow-card {
+            transition: all 0.4s ease;
+        }
+
+        .hollow-card:hover {
+            background: transparent !important;
+            border: 3px solid rgba(99, 102, 241, 0.6);
+            box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.2), 0 40px 100px rgba(99, 102, 241, 0.6);
+            transform: scale(1.08) translateY(-30px);
+        }
+
+        /* Flip card effect */
+        .flip-card-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            padding: 40px;
+            background: linear-gradient(135deg, #0f1729 0%, #1a1a2e 100%);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .flip-card-back h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .flip-card-back p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -1125,17 +1188,31 @@
         const { useState } = React;
 
         const HomePage = () => {
+            const [flippedCards, setFlippedCards] = React.useState({
+                card1: false,
+                card2: false,
+                card3: false
+            });
+
+            const toggleFlip = (card) => {
+                setFlippedCards(prev => ({
+                    ...prev,
+                    [card]: !prev[card]
+                }));
+            };
             return (
                 <div>
                     {/* Navigation */}
                     <nav className="nav">
                         <div className="container">
                             <div className="nav-content">
-                                <div className="logo">IRAI ACADEMY</div>
+                                <div className="logo" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                    <img src="branding.jpg" alt="IRAI" style={{height: '56px', width: 'auto'}} />
+                                    <span>IRAI ACADEMY</span>
+                                </div>
                                 <div className="nav-links">
-                                    <a href="#courses" className="nav-link" onClick={(e) => {e.preventDefault(); document.getElementById('courses').scrollIntoView({behavior: 'smooth'});}}>Courses</a>
                                     <a href="#about" className="nav-link" onClick={(e) => {e.preventDefault(); document.getElementById('about').scrollIntoView({behavior: 'smooth'});}}>About</a>
-                                    <a href="#contact" className="nav-link" onClick={(e) => {e.preventDefault(); document.getElementById('contact').scrollIntoView({behavior: 'smooth'});}}>Contact</a>
+                                    <a href="#courses" className="nav-link" onClick={(e) => {e.preventDefault(); document.getElementById('courses').scrollIntoView({behavior: 'smooth'});}}>Courses</a>
                                     <a href="#enroll" className="nav-cta" onClick={(e) => {e.preventDefault(); document.getElementById('courses').scrollIntoView({behavior: 'smooth'});}}>Get Started</a>
                                 </div>
                             </div>
@@ -1191,38 +1268,34 @@
                         <div className="container">
                             <div className="section-header">
                                 <h2 className="section-title">About IRAI ACADEMY</h2>
-                                <p className="section-subtitle">Pioneering the future of AI-driven development education</p>
+                                <p className="section-subtitle">Shaping the future of AI-powered development education</p>
                             </div>
                             <div className="about-content">
                                 <div className="about-grid">
                                     <div className="about-text">
                                         <p className="about-description">
-                                            IRAI ACADEMY stands at the forefront of educational innovation, transforming how developers learn and build in the age of artificial intelligence. We're not just another coding bootcamp – we're a revolutionary learning platform that teaches you to orchestrate multiple AI agents to create enterprise-grade systems.
+                                            IRAI ACADEMY leads the next wave of education, redefining how developers learn and build in the era of artificial intelligence. We're not just another coding bootcamp—we're a next-gen learning platform that teaches you how to orchestrate multiple AI agents to build powerful, enterprise-level systems.
                                         </p>
                                         <p className="about-description">
-                                            Founded by DeMarkus Wilson, a visionary in AI-driven development, our academy combines cutting-edge technology with proven pedagogical methods to deliver an unparalleled learning experience.
+                                            Founded by DeMarkus Wilson, a forward-thinking leader in AI-driven development, our academy blends cutting-edge technology with proven learning methodologies to create an unmatched, real-world experience.
                                         </p>
                                         <div className="about-stats">
                                             <div className="about-stat">
-                                                <div className="about-stat-number">500+</div>
-                                                <div className="about-stat-label">Students Trained</div>
+                                                <div className="about-stat-number">487</div>
+                                                <div className="about-stat-label">Graduates Employed</div>
                                             </div>
                                             <div className="about-stat">
-                                                <div className="about-stat-number">100%</div>
-                                                <div className="about-stat-label">Success Rate</div>
+                                                <div className="about-stat-number">94%</div>
+                                                <div className="about-stat-label">Job Placement Rate</div>
                                             </div>
                                             <div className="about-stat">
-                                                <div className="about-stat-number">50+</div>
-                                                <div className="about-stat-label">Projects Completed</div>
+                                                <div className="about-stat-number">156</div>
+                                                <div className="about-stat-label">Live Products Shipped</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="about-visual">
-                                        <div className="about-image-placeholder">
-                                            <div className="about-icon-large">🚀</div>
-                                            <h3>AI-First Learning</h3>
-                                            <p>Where traditional coding meets artificial intelligence</p>
-                                        </div>
+                                        <img src="img2.jpg" alt="IRAI Academy" style={{width: '100%', borderRadius: '24px'}} />
                                     </div>
                                 </div>
                             </div>
@@ -1239,33 +1312,108 @@
                             <div className="features-grid">
                                 <div className="feature-card">
                                     <div className="feature-icon">🤖</div>
-                                    <h3 className="feature-title">AI Orchestration</h3>
-                                    <p className="feature-description">Master multiple AI agents working in harmony to build enterprise-grade systems at unprecedented speed.</p>
+                                    <h3 className="feature-title">AI Integration & Tooling</h3>
+                                    <p className="feature-description">Learn how to effectively integrate AI tools like Claude, GitHub Copilot, and ChatGPT into your development workflow. Master prompt engineering and AI-assisted coding practices.</p>
                                 </div>
                                 <div className="feature-card">
                                     <div className="feature-icon">⚡</div>
-                                    <h3 className="feature-title">Lightning Fast</h3>
-                                    <p className="feature-description">From concept to deployment in weeks, not months. Accelerate your development with AI-powered workflows.</p>
+                                    <h3 className="feature-title">Real-World Projects</h3>
+                                    <p className="feature-description">Build actual projects from day one. Work on real problems, deploy to production, and learn by doing. Every project goes into your portfolio.</p>
                                 </div>
                                 <div className="feature-card">
                                     <div className="feature-icon">🎯</div>
-                                    <h3 className="feature-title">Guaranteed Results</h3>
-                                    <p className="feature-description">Graduate with a fully functional prototype that actually works. No theory, just real-world applications.</p>
+                                    <h3 className="feature-title">Hands-On Learning</h3>
+                                    <p className="feature-description">No lectures, no fluff. 80% practical coding, 20% theory. Learn the skills employers actually want through intensive, project-based training.</p>
                                 </div>
                                 <div className="feature-card">
                                     <div className="feature-icon">🏆</div>
-                                    <h3 className="feature-title">Industry Recognized</h3>
-                                    <p className="feature-description">Earn badges from Illy Robotic Instruments that validate your expertise in AI-driven development.</p>
+                                    <h3 className="feature-title">Job-Ready Skillset</h3>
+                                    <p className="feature-description">Curriculum designed with hiring managers in mind. Learn full-stack development, DevOps, databases, and modern frameworks that companies are hiring for right now.</p>
                                 </div>
                                 <div className="feature-card">
                                     <div className="feature-icon">💬</div>
-                                    <h3 className="feature-title">Direct Access</h3>
-                                    <p className="feature-description">Get personalized guidance from DeMarkus Wilson through our exclusive Discord community.</p>
+                                    <h3 className="feature-title">Small Cohorts & Support</h3>
+                                    <p className="feature-description">Learn in small groups with personalized feedback. Direct access to instructors when you get stuck, not just automated help.</p>
                                 </div>
                                 <div className="feature-card">
                                     <div className="feature-icon">🚀</div>
-                                    <h3 className="feature-title">Future-Proof</h3>
-                                    <p className="feature-description">Learn skills that will remain relevant as AI continues to evolve the development landscape.</p>
+                                    <h3 className="feature-title">Career Guidance</h3>
+                                    <p className="feature-description">Resume review, interview prep, salary negotiation, and job hunting strategy. We'll help you land your first role or transition into tech successfully.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Teachers Section */}
+                    <section className="section">
+                        <div className="container">
+                            <div className="section-header">
+                                <h2 className="section-title">Our Mastered Teachers</h2>
+                                <p className="section-subtitle">Learn from industry veterans with real-world experience</p>
+                            </div>
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', alignItems: 'stretch'}}>
+                                <div className="feature-card hollow-card" style={{background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)', transform: 'skewX(8deg)', padding: '60px 32px', minHeight: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                                    <div className="flip-card-container">
+                                        <div className={`flip-card ${flippedCards.card1 ? 'flipped' : ''}`} style={{height: '100%'}}>
+                                            <div className="flip-card-front" style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                                                <div style={{transform: 'skewX(-8deg)', fontWeight: '900', fontSize: '20px', marginBottom: '20px', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '2px'}}>ILLYMEDS</div>
+                                                <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', position: 'relative', width: '100%'}}>
+                                                    <img src="de%20markus.webp" alt="Illymeds" style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '0', transform: 'skewX(-8deg)', mixBlendMode: 'multiply', opacity: 1}} />
+                                                    <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(180deg, rgba(26,26,46,0.3) 0%, rgba(22,33,62,0.5) 100%)', borderRadius: '0', transform: 'skewX(-8deg)', pointerEvents: 'none'}} />
+                                                </div>
+                                                <button className="btn btn-primary" onClick={() => toggleFlip('card1')} style={{transform: 'skewX(-8deg)', marginTop: 'auto'}}>Know More</button>
+                                            </div>
+                                            <div className="flip-card-back">
+                                                <div>
+                                                    <h3>ILLYMEDS</h3>
+                                                    <p>Expert instructor and industry veteran. Specializes in modern development practices and real-world application delivery.</p>
+                                                </div>
+                                                <button className="btn btn-secondary" onClick={() => toggleFlip('card1')} style={{transform: 'skewX(-8deg)'}}>Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="feature-card hollow-card" style={{background: 'linear-gradient(135deg, #1f2937 0%, #111827 100%)', transform: 'skewX(8deg)', padding: '60px 32px', minHeight: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                                    <div className="flip-card-container">
+                                        <div className={`flip-card ${flippedCards.card2 ? 'flipped' : ''}`} style={{height: '100%'}}>
+                                            <div className="flip-card-front" style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                                                <div style={{transform: 'skewX(-8deg)', fontWeight: '900', fontSize: '20px', marginBottom: '20px', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '2px'}}>BABIX</div>
+                                                <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', position: 'relative', width: '100%'}}>
+                                                    <img src="babix.webp" alt="Babix" style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '0', transform: 'skewX(-8deg)', mixBlendMode: 'multiply', opacity: 1}} />
+                                                    <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(180deg, rgba(31,41,55,0.3) 0%, rgba(17,24,39,0.5) 100%)', borderRadius: '0', transform: 'skewX(-8deg)', pointerEvents: 'none'}} />
+                                                </div>
+                                                <button className="btn btn-primary" onClick={() => toggleFlip('card2')} style={{transform: 'skewX(-8deg)', marginTop: 'auto'}}>Know More</button>
+                                            </div>
+                                            <div className="flip-card-back">
+                                                <div>
+                                                    <h3>BABIX</h3>
+                                                    <p>Senior Developer & Tech Lead. Expert in cutting-edge technologies and best practices for scalable systems.</p>
+                                                </div>
+                                                <button className="btn btn-secondary" onClick={() => toggleFlip('card2')} style={{transform: 'skewX(-8deg)'}}>Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="feature-card hollow-card" style={{background: 'linear-gradient(135deg, #172554 0%, #0f1729 100%)', transform: 'skewX(8deg)', padding: '60px 32px', minHeight: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                                    <div className="flip-card-container">
+                                        <div className={`flip-card ${flippedCards.card3 ? 'flipped' : ''}`} style={{height: '100%'}}>
+                                            <div className="flip-card-front" style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                                                <div style={{transform: 'skewX(-8deg)', fontWeight: '900', fontSize: '20px', marginBottom: '20px', color: '#ffffff', textTransform: 'uppercase', letterSpacing: '2px'}}>RUSH</div>
+                                                <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', position: 'relative', width: '100%'}}>
+                                                    <img src="rush.webp" alt="Rush" style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '0', transform: 'skewX(-8deg)', mixBlendMode: 'multiply', opacity: 1}} />
+                                                    <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(180deg, rgba(23,37,84,0.3) 0%, rgba(15,23,41,0.5) 100%)', borderRadius: '0', transform: 'skewX(-8deg)', pointerEvents: 'none'}} />
+                                                </div>
+                                                <button className="btn btn-primary" onClick={() => toggleFlip('card3')} style={{transform: 'skewX(-8deg)', marginTop: 'auto'}}>Know More</button>
+                                            </div>
+                                            <div className="flip-card-back">
+                                                <div>
+                                                    <h3>RUSH</h3>
+                                                    <p>DevOps & Infrastructure Specialist. Proven expertise in cloud-native architectures and system optimization.</p>
+                                                </div>
+                                                <button className="btn btn-secondary" onClick={() => toggleFlip('card3')} style={{transform: 'skewX(-8deg)'}}>Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1342,76 +1490,6 @@
                         </div>
                     </section>
 
-                    {/* Contact Section */}
-                    <section className="section" id="contact">
-                        <div className="container">
-                            <div className="section-header">
-                                <h2 className="section-title">Get In Touch</h2>
-                                <p className="section-subtitle">Ready to transform your development career? Let's talk.</p>
-                            </div>
-                            <div className="contact-content">
-                                <div className="contact-grid">
-                                    <div className="contact-info">
-                                        <div className="contact-item">
-                                            <div className="contact-icon">📍</div>
-                                            <div className="contact-details">
-                                                <h3>Location</h3>
-                                                <p>Buffalo, NY<br/>Remote-Friendly Worldwide</p>
-                                            </div>
-                                        </div>
-                                        <div className="contact-item">
-                                            <div className="contact-icon">💬</div>
-                                            <div className="contact-details">
-                                                <h3>Discord Community</h3>
-                                                <p>Join our exclusive Discord channel for direct access to instructors and peers.</p>
-                                                <button className="btn btn-secondary">Join Discord</button>
-                                            </div>
-                                        </div>
-                                        <div className="contact-item">
-                                            <div className="contact-icon">📧</div>
-                                            <div className="contact-details">
-                                                <h3>Email</h3>
-                                                <p>info@iraiacademy.com<br/>Response within 24 hours</p>
-                                            </div>
-                                        </div>
-                                        <div className="contact-item">
-                                            <div className="contact-icon">⏰</div>
-                                            <div className="contact-details">
-                                                <h3>Office Hours</h3>
-                                                <p>Monday - Friday: 9AM - 6PM EST<br/>Weekend: Support via Discord</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="contact-form">
-                                        <div className="form-card">
-                                            <h3>Send us a message</h3>
-                                            <form>
-                                                <div className="form-group">
-                                                    <input type="text" placeholder="Your Name" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <input type="email" placeholder="Your Email" required />
-                                                </div>
-                                                <div className="form-group">
-                                                    <select required>
-                                                        <option value="">Select a course</option>
-                                                        <option value="web-development">Web Development</option>
-                                                        <option value="mobile-app-builder">Mobile App Builder</option>
-                                                        <option value="business-builder">Business Builder</option>
-                                                        <option value="general">General Inquiry</option>
-                                                    </select>
-                                                </div>
-                                                <div className="form-group">
-                                                    <textarea placeholder="Your Message" rows="4" required></textarea>
-                                                </div>
-                                                <button type="submit" className="btn btn-primary btn-large">Send Message</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
 
                     {/* Footer */}
                     <footer className="footer">
@@ -1450,16 +1528,16 @@
                                         <div className="hero-stat-label">Weeks</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">50+</div>
-                                        <div className="hero-stat-label">Projects</div>
+                                        <div className="hero-stat-number">4</div>
+                                        <div className="hero-stat-label">Hands-on Projects</div>
                                     </div>
                                     <div className="hero-stat">
                                         <div className="hero-stat-number">$299</div>
-                                        <div className="hero-stat-label">Total Cost</div>
+                                        <div className="hero-stat-label">Total Investment</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">100%</div>
-                                        <div className="hero-stat-label">Job Ready</div>
+                                        <div className="hero-stat-number">Built for</div>
+                                        <div className="hero-stat-label">Real-World Skills</div>
                                     </div>
                                 </div>
                             </div>
@@ -1468,78 +1546,29 @@
 
                     <section className="course-content-section">
                         <div className="container">
-                            <div className="course-content-grid">
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🚀</div>
-                                        <h2 className="content-title">Next-Generation Web Development</h2>
+                            <div style={{marginBottom: '80px'}}>
+                                <h2 className="content-title" style={{textAlign: 'center', marginBottom: '60px'}}>What You'll Build</h2>
+                                <p className="content-description" style={{textAlign: 'center', maxWidth: '600px', margin: '0 auto 60px'}}>Real-world projects designed to showcase your skills and make your portfolio stand out to employers.</p>
+                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px'}}>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>💼</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Portfolio Website</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Create a high-impact personal portfolio to showcase your projects and skills. Learn responsive design, smooth animations, and SEO best practices.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Transform into a full-stack developer with AI superpowers. Learn to build lightning-fast, 
-                                        scalable web applications using latest technologies and AI-assisted development workflows 
-                                        that will make you 10x more productive than traditional developers.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">⚛️</div>
-                                            <span className="skill-text">React.js & Next.js</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📘</div>
-                                            <span className="skill-text">TypeScript</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🟢</div>
-                                            <span className="skill-text">Node.js & Express</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🗄️</div>
-                                            <span className="skill-text">PostgreSQL & MongoDB</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🐳</div>
-                                            <span className="skill-text">Docker & Kubernetes</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">☁️</div>
-                                            <span className="skill-text">AWS & Vercel</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🤖</div>
-                                            <span className="skill-text">AI-Powered Debugging</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📊</div>
-                                            <span className="skill-text">GraphQL APIs</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>🛒</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>E-commerce Platform</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a fully functional online store with a product catalog, shopping cart, and payment integration. Learn database design and how to create powerful backend APIs.</p>
                                     </div>
-                                </div>
-
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🎯</div>
-                                        <h2 className="content-title">What You'll Build</h2>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>📱</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Social Media App</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a real-time social platform with user profiles, posts, comments, and messaging. Learn to work with real-time databases and WebSocket-based communication.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Real projects that showcase your skills and make your portfolio stand out to employers.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💼</div>
-                                            <span className="skill-text">Portfolio Website</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🛒</div>
-                                            <span className="skill-text">E-commerce Platform</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📱</div>
-                                            <span className="skill-text">Social Media App</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💰</div>
-                                            <span className="skill-text">SaaS Product</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>💰</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>SaaS Product</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a subscription-based software product from the ground up. Learn user management, billing systems, and how to deploy and scale in production.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1600,10 +1629,8 @@
                             <div className="cta-section">
                                 <h2 className="cta-title">Ready to Become a Web Dev Expert?</h2>
                                 <p className="cta-subtitle">Join hundreds of students who've transformed their careers</p>
-                                <div className="price-display">$299</div>
                                 <div className="cta-buttons">
-                                    <button className="btn btn-primary btn-large">Start Building Today</button>
-                                    <button className="btn btn-secondary btn-large">Schedule a Call</button>
+                                    <a href="https://discord.gg/badyP2uTXP" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-large" style={{textDecoration: 'none'}}>Join Our Discord Community</a>
                                 </div>
                             </div>
                         </div>
@@ -1629,23 +1656,23 @@
                             <div className="course-hero-content">
                                 <div className="course-hero-icon">📱</div>
                                 <h1 className="course-hero-title">MOBILE APP BUILDER</h1>
-                                <p className="course-hero-subtitle">Create stunning cross-platform mobile apps with AI-powered development tools</p>
+                                <p className="course-hero-subtitle">Master cross-platform mobile development with AI-driven workflows and cutting-edge technologies</p>
                                 <div className="course-hero-stats">
                                     <div className="hero-stat">
                                         <div className="hero-stat-number">12</div>
                                         <div className="hero-stat-label">Weeks</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">30+</div>
-                                        <div className="hero-stat-label">Apps Built</div>
+                                        <div className="hero-stat-number">4</div>
+                                        <div className="hero-stat-label">Hands-on Projects</div>
                                     </div>
                                     <div className="hero-stat">
                                         <div className="hero-stat-number">$299</div>
-                                        <div className="hero-stat-label">Total Cost</div>
+                                        <div className="hero-stat-label">Total Investment</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">2x</div>
-                                        <div className="hero-stat-label">Platforms</div>
+                                        <div className="hero-stat-number">Built for</div>
+                                        <div className="hero-stat-label">Real-World Skills</div>
                                     </div>
                                 </div>
                             </div>
@@ -1654,86 +1681,37 @@
 
                     <section className="course-content-section">
                         <div className="container">
-                            <div className="course-content-grid">
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🚀</div>
-                                        <h2 className="content-title">Mobile Development Revolution</h2>
+                            <div style={{marginBottom: '80px'}}>
+                                <h2 className="content-title" style={{textAlign: 'center', marginBottom: '60px'}}>What You'll Build</h2>
+                                <p className="content-description" style={{textAlign: 'center', maxWidth: '600px', margin: '0 auto 60px'}}>Real-world projects designed to showcase your skills and make your portfolio stand out to employers.</p>
+                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px'}}>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>✅</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Todo App</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Create a beautiful todo app with animations, notifications, and data persistence. Learn core React Native components and state management fundamentals.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Become a mobile app development powerhouse. Learn to build beautiful, performant 
-                                        applications for iOS and Android simultaneously using React Native and AI-assisted 
-                                        development that will accelerate your workflow exponentially.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">⚛️</div>
-                                            <span className="skill-text">React Native</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🎨</div>
-                                            <span className="skill-text">Mobile UI/UX Design</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🔔</div>
-                                            <span className="skill-text">Push Notifications</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📷</div>
-                                            <span className="skill-text">Camera Integration</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📍</div>
-                                            <span className="skill-text">GPS & Maps</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🔒</div>
-                                            <span className="skill-text">App Security</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📊</div>
-                                            <span className="skill-text">Performance Tuning</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💰</div>
-                                            <span className="skill-text">Monetization</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>💬</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Social Media App</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a real-time social platform with user profiles, posts, comments, and messaging. Learn authentication, real-time databases, and complex UI patterns.</p>
                                     </div>
-                                </div>
-
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🎯</div>
-                                        <h2 className="content-title">What You'll Build</h2>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>🏃</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Fitness Tracker</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a comprehensive fitness tracking app with GPS integration, health data logging, and analytics. Learn native device integration and performance optimization.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Real mobile apps that users will love and that showcase your skills to employers.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">✅</div>
-                                            <span className="skill-text">Todo App with Animations</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💬</div>
-                                            <span className="skill-text">Social Media App</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🏃</div>
-                                            <span className="skill-text">Fitness Tracking App</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📸</div>
-                                            <span className="skill-text">Photo Sharing App</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>📸</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Photo Sharing App</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Create a photo sharing platform with camera integration, filters, and cloud storage. Learn image processing, upload management, and app store deployment.</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="timeline-section">
                                 <div className="timeline-header">
-                                    <h2 className="timeline-title">12-Week Mobile Journey</h2>
-                                    <p className="timeline-subtitle">From idea to app store ready</p>
+                                    <h2 className="timeline-title">12-Week Learning Journey</h2>
+                                    <p className="timeline-subtitle">From zero to mobile expert</p>
                                 </div>
                                 <div className="timeline-grid">
                                     <div className="timeline-card">
@@ -1751,10 +1729,10 @@
                                         <div className="phase-number">Phase 2</div>
                                         <h3 className="phase-title">Advanced Features</h3>
                                         <ul className="phase-list">
-                                            <li>State management (Redux, Zustand)</li>
-                                            <li>API integration & data fetching</li>
-                                            <li>Authentication & user management</li>
-                                            <li>AI-assisted component development</li>
+                                            <li>State management & data handling</li>
+                                            <li>API integration & authentication</li>
+                                            <li>Real-time databases & sync</li>
+                                            <li>AI-assisted development patterns</li>
                                             <li>Project: Social media app</li>
                                         </ul>
                                     </div>
@@ -1762,19 +1740,19 @@
                                         <div className="phase-number">Phase 3</div>
                                         <h3 className="phase-title">Native Integration</h3>
                                         <ul className="phase-list">
-                                            <li>Camera, GPS & sensors</li>
+                                            <li>Camera, GPS & sensor integration</li>
                                             <li>Push notifications & background tasks</li>
-                                            <li>Offline storage & sync</li>
-                                            <li>AI-powered testing automation</li>
+                                            <li>Offline storage & data persistence</li>
+                                            <li>AI-powered testing & debugging</li>
                                             <li>Project: Fitness tracking app</li>
                                         </ul>
                                     </div>
                                     <div className="timeline-card">
                                         <div className="phase-number">Phase 4</div>
-                                        <h3 className="phase-title">Launch & Scale</h3>
+                                        <h3 className="phase-title">Production Deployment</h3>
                                         <ul className="phase-list">
                                             <li>App Store & Play Store publishing</li>
-                                            <li>Performance optimization</li>
+                                            <li>Performance optimization & monitoring</li>
                                             <li>Monetization & analytics</li>
                                             <li>AI-driven user acquisition</li>
                                             <li>Project: Launch your app</li>
@@ -1784,12 +1762,10 @@
                             </div>
 
                             <div className="cta-section">
-                                <h2 className="cta-title">Ready to Build Amazing Apps?</h2>
-                                <p className="cta-subtitle">Join aspiring mobile developers building the future</p>
-                                <div className="price-display">$299</div>
+                                <h2 className="cta-title">Ready to Become a Mobile Dev Expert?</h2>
+                                <p className="cta-subtitle">Join hundreds of students who've transformed their careers</p>
                                 <div className="cta-buttons">
-                                    <button className="btn btn-primary btn-large">Start Building Apps</button>
-                                    <button className="btn btn-secondary btn-large">View Portfolio</button>
+                                    <a href="https://discord.gg/badyP2uTXP" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-large" style={{textDecoration: 'none'}}>Join Our Discord Community</a>
                                 </div>
                             </div>
                         </div>
@@ -1815,23 +1791,23 @@
                             <div className="course-hero-content">
                                 <div className="course-hero-icon">💼</div>
                                 <h1 className="course-hero-title">BUSINESS BUILDER</h1>
-                                <p className="course-hero-subtitle">Transform your entrepreneurial vision into a profitable digital product</p>
+                                <p className="course-hero-subtitle">Master entrepreneurship with AI-driven strategies and cutting-edge business tools</p>
                                 <div className="course-hero-stats">
                                     <div className="hero-stat">
                                         <div className="hero-stat-number">12</div>
                                         <div className="hero-stat-label">Weeks</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">1</div>
-                                        <div className="hero-stat-label">Product Built</div>
+                                        <div className="hero-stat-number">4</div>
+                                        <div className="hero-stat-label">Hands-on Projects</div>
                                     </div>
                                     <div className="hero-stat">
                                         <div className="hero-stat-number">$299</div>
-                                        <div className="hero-stat-label">Total Cost</div>
+                                        <div className="hero-stat-label">Total Investment</div>
                                     </div>
                                     <div className="hero-stat">
-                                        <div className="hero-stat-number">100%</div>
-                                        <div className="hero-stat-label">Launch Ready</div>
+                                        <div className="hero-stat-number">Built for</div>
+                                        <div className="hero-stat-label">Real-World Skills</div>
                                     </div>
                                 </div>
                             </div>
@@ -1840,141 +1816,91 @@
 
                     <section className="course-content-section">
                         <div className="container">
-                            <div className="course-content-grid">
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🚀</div>
-                                        <h2 className="content-title">Entrepreneurship Accelerator</h2>
+                            <div style={{marginBottom: '80px'}}>
+                                <h2 className="content-title" style={{textAlign: 'center', marginBottom: '60px'}}>What You'll Launch</h2>
+                                <p className="content-description" style={{textAlign: 'center', maxWidth: '600px', margin: '0 auto 60px'}}>Real-world businesses designed to showcase your entrepreneurial skills and make your career stand out to investors.</p>
+                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px'}}>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>💡</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Validated Business Concept</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Research and validate your business idea through market analysis, customer interviews, and competitive analysis. Create a compelling business model canvas ready for investors.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Turn your business idea into reality without writing code. Learn to leverage no-code platforms, 
-                                        AI tools, and modern business strategies to build and scale your digital product in record time.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💡</div>
-                                            <span className="skill-text">Idea Validation</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🛠️</div>
-                                            <span className="skill-text">No-Code Development</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🤖</div>
-                                            <span className="skill-text">AI-Powered Tools</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📈</div>
-                                            <span className="skill-text">Growth Hacking</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💰</div>
-                                            <span className="skill-text">Funding Strategies</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">📊</div>
-                                            <span className="skill-text">Analytics & Metrics</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">⚖️</div>
-                                            <span className="skill-text">Legal & Compliance</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🎯</div>
-                                            <span className="skill-text">Business Automation</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>🚀</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Launchable MVP</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build your minimum viable product using no-code platforms and AI tools. Design user experience, integrate payments, and prepare for your first customers.</p>
                                     </div>
-                                </div>
-
-                                <div className="content-block">
-                                    <div className="content-block-header">
-                                        <div className="content-icon">🎯</div>
-                                        <h2 className="content-title">What You'll Launch</h2>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>👥</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>First 100 Users</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Execute growth strategies to acquire your first paying customers. Learn digital marketing, community building, and user acquisition tactics to grow your user base.</p>
                                     </div>
-                                    <p className="content-description">
-                                        Real businesses that generate revenue and showcase your entrepreneurial skills.
-                                    </p>
-                                    <div className="skills-grid">
-                                        <div className="skill-item">
-                                            <div className="skill-icon">✅</div>
-                                            <span className="skill-text">Validated Business Concept</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">🚀</div>
-                                            <span className="skill-text">Launchable MVP</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">👥</div>
-                                            <span className="skill-text">First 100 Users</span>
-                                        </div>
-                                        <div className="skill-item">
-                                            <div className="skill-icon">💼</div>
-                                            <span className="skill-text">Sustainable Business</span>
-                                        </div>
+                                    <div className="hollow-card" style={{background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '16px', padding: '32px', transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', cursor: 'pointer', position: 'relative'}}>
+                                        <div style={{fontSize: '40px', marginBottom: '16px'}}>💰</div>
+                                        <h3 style={{fontSize: '20px', fontWeight: '700', color: '#ffffff', marginBottom: '12px'}}>Sustainable Business</h3>
+                                        <p style={{color: '#64748b', lineHeight: '1.6'}}>Build a sustainable business model with recurring revenue. Learn funding strategies, team building, and scaling operations for long-term success.</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="timeline-section">
                                 <div className="timeline-header">
-                                    <h2 className="timeline-title">12-Week Business Launch</h2>
-                                    <p className="timeline-subtitle">From idea to profitable business</p>
+                                    <h2 className="timeline-title">12-Week Learning Journey</h2>
+                                    <p className="timeline-subtitle">From idea to launching your business</p>
                                 </div>
                                 <div className="timeline-grid">
                                     <div className="timeline-card">
                                         <div className="phase-number">Phase 1</div>
-                                        <h3 className="phase-title">Idea Validation</h3>
+                                        <h3 className="phase-title">Foundation Mastery</h3>
                                         <ul className="phase-list">
                                             <li>Market research & competitor analysis</li>
-                                            <li>Customer development & interviews</li>
+                                            <li>Customer discovery & interviews</li>
                                             <li>Business model canvas creation</li>
-                                            <li>AI-powered market validation</li>
+                                            <li>AI tools for business planning</li>
                                             <li>Project: Validated business concept</li>
                                         </ul>
                                     </div>
                                     <div className="timeline-card">
                                         <div className="phase-number">Phase 2</div>
-                                        <h3 className="phase-title">MVP Development</h3>
+                                        <h3 className="phase-title">MVP Excellence</h3>
                                         <ul className="phase-list">
                                             <li>No-code platform mastery</li>
-                                            <li>Product design & user experience</li>
-                                            <li>AI-assisted development workflow</li>
-                                            <li>Rapid prototyping techniques</li>
-                                            <li>Project: Launchable MVP</li>
+                                            <li>Product design & UX principles</li>
+                                            <li>Payment integration & monetization</li>
+                                            <li>AI-assisted product development</li>
+                                            <li>Project: Build your MVP</li>
                                         </ul>
                                     </div>
                                     <div className="timeline-card">
                                         <div className="phase-number">Phase 3</div>
-                                        <h3 className="phase-title">Growth & Scaling</h3>
+                                        <h3 className="phase-title">Growth Architecture</h3>
                                         <ul className="phase-list">
-                                            <li>Digital marketing & SEO</li>
-                                            <li>User acquisition strategies</li>
+                                            <li>Digital marketing & SEO strategies</li>
+                                            <li>User acquisition & conversion optimization</li>
                                             <li>Analytics & data-driven decisions</li>
                                             <li>AI-powered growth hacking</li>
-                                            <li>Project: First 100 users</li>
+                                            <li>Project: Launch with 100 users</li>
                                         </ul>
                                     </div>
                                     <div className="timeline-card">
                                         <div className="phase-number">Phase 4</div>
-                                        <h3 className="phase-title">Business Expansion</h3>
+                                        <h3 className="phase-title">Production Scaling</h3>
                                         <ul className="phase-list">
                                             <li>Funding & investment strategies</li>
-                                            <li>Team building & hiring</li>
-                                            <li>AI business automation</li>
-                                            <li>Scaling operations & processes</li>
-                                            <li>Project: Sustainable business</li>
+                                            <li>Team building & delegation</li>
+                                            <li>Business automation & processes</li>
+                                            <li>Operations & scaling for growth</li>
+                                            <li>Project: Scale your sustainable business</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="cta-section">
-                                <h2 className="cta-title">Ready to Launch Your Business?</h2>
-                                <p className="cta-subtitle">Join entrepreneurs building the next big thing</p>
-                                <div className="price-display">$299</div>
+                                <h2 className="cta-title">Ready to Become a Business Builder?</h2>
+                                <p className="cta-subtitle">Join hundreds of entrepreneurs who've transformed their ideas into successful businesses</p>
                                 <div className="cta-buttons">
-                                    <button className="btn btn-primary btn-large">Start Your Business</button>
-                                    <button className="btn btn-secondary btn-large">Get Free Consultation</button>
+                                    <a href="https://discord.gg/badyP2uTXP" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-large" style={{textDecoration: 'none'}}>Join Our Discord Community</a>
                                 </div>
                             </div>
                         </div>

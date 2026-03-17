@@ -41,15 +41,12 @@
 
   .section-title {
     font-family: 'Space Grotesk', sans-serif;
-    @apply text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-purple-300 to-pink-500 bg-clip-text text-transparent;
+    @apply text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent;
+    background: linear-gradient(to right, #ffffff 0%, #c084fc 50%, #ec4899 100%);
   }
 
   .section-subtitle {
     @apply text-lg text-gray max-w-2xl mx-auto;
-  }
-
-  .hollow-card {
-    @apply bg-white/5 border border-indigo-500/20 rounded-xl p-8 transition-all duration-500 cursor-pointer relative hover:bg-white/8 hover:border-indigo-500/40;
   }
 }
 

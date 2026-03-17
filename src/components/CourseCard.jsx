@@ -2,14 +2,35 @@ export default function CourseCard({ icon, title, subtitle, features, onClick })
   return (
     <div 
       onClick={onClick}
-      className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 cursor-pointer hover:translate-y-[-12px] hover:scale-105 hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/20 group"
+      className="rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 cursor-pointer group"
+      style={{
+        background: 'rgba(255, 255, 255, 0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
+        e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+        e.currentTarget.style.boxShadow = '0 41px 120px rgba(99, 102, 241, 0.2)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'none';
+        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
     >
       {/* Gradient overlay */}
-      <div className="h-48 bg-gradient-to-r from-indigo-600/10 to-purple-600/10 relative" />
+      <div 
+        className="h-48 relative" 
+        style={{
+          background: 'linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(147, 51, 234, 0.1))',
+        }}
+      />
       
       {/* Content */}
       <div className="px-8 pt-8 pb-6 relative">
-        <div className="w-20 h-20 bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-2xl flex items-center justify-center text-4xl mb-6 relative z-10">
+        <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mb-6 relative z-10" style={{
+          background: 'linear-gradient(to right, #4f46e5, #6366f1)',
+        }}>
           {icon}
         </div>
         

@@ -136,7 +136,7 @@ export default function HomePage({ showCourse }) {
               </div>
               <div className="flex justify-center md:justify-end">
                 <img 
-                  src="/img2.jpg" 
+                  src="./img2.jpg" 
                   alt="IRAI Academy" 
                   className="rounded-2xl max-w-full h-auto shadow-2xl"
                   style={{ maxHeight: '400px' }}

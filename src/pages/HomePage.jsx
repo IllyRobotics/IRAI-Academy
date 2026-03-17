@@ -127,10 +127,22 @@ export default function HomePage({ showCourse }) {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-gray-300 text-lg leading-relaxed">
-              IRAI Academy is a next-generation learning platform designed for the AI era. We combine hands-on project-based learning with cutting-edge AI tools to accelerate your development journey. Our courses are built with industry professionals and cover real-world technologies used by top companies. Every project in our curriculum is designed to be portfolio-ready and employer-impressive.
-            </p>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="text-center md:text-left">
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  IRAI Academy is a next-generation learning platform designed for the AI era. We combine hands-on project-based learning with cutting-edge AI tools to accelerate your development journey. Our courses are built with industry professionals and cover real-world technologies used by top companies. Every project in our curriculum is designed to be portfolio-ready and employer-impressive.
+                </p>
+              </div>
+              <div className="flex justify-center md:justify-end">
+                <img 
+                  src="./img2.jpg" 
+                  alt="IRAI Academy" 
+                  className="rounded-2xl max-w-full h-auto shadow-2xl"
+                  style={{ maxHeight: '400px' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

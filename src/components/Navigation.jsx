@@ -2,8 +2,16 @@ export default function Navigation({ currentPage, showHome }) {
   return (
     <nav className="fixed top-0 w-full bg-dark/95 backdrop-blur-md border-b border-white/10 z-50">
       <div className="container flex justify-between items-center h-20">
-        <div className="text-2xl font-bold font-space-grotesk bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent cursor-pointer" onClick={showHome}>
-          IRAI ACADEMY
+        <div className="flex items-center gap-4">
+          <img 
+            src="./IRAILOGO.jpg" 
+            alt="IRAI Academy" 
+            className="h-12 w-auto cursor-pointer"
+            onClick={showHome}
+          />
+          <div className="text-2xl font-bold font-space-grotesk bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            IRAI ACADEMY
+          </div>
         </div>
         
         <div className="hidden md:flex gap-8 items-center">

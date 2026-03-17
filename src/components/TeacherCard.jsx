@@ -10,11 +10,11 @@ export default function TeacherCard({ teacher }) {
   // Get the correct image filename based on teacher name
   const getImagePath = (teacherName) => {
     const nameMap = {
-      'ILLYMEDS': 'de markus.jpg',
+      'ILLYMEDS': 'illymeds.jpg',
       'BABIX': 'babix.jpg',
       'RUSH': 'rush.jpg'
     }
-    return `/${nameMap[teacherName] || `${teacherName.toLowerCase()}.jpg`}`
+    return `./${nameMap[teacherName] || `${teacherName.toLowerCase()}.jpg`}`
   }
 
   return (

@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom'
 import CourseCard from '../components/CourseCard'
 import TeacherCard from '../components/TeacherCard'
 
-export default function HomePage({ showCourse }) {
+export default function HomePage() {
   const courses = [
     {
       id: 'web-development',
+      path: '/Web-Development',
       icon: '🌐',
       title: 'WEB DEVELOPMENT',
       subtitle: 'Modern web apps with AI assistance',
@@ -17,6 +19,7 @@ export default function HomePage({ showCourse }) {
     },
     {
       id: 'mobile-app-builder',
+      path: '/Mobile-App-Builder',
       icon: '📱',
       title: 'MOBILE APP BUILDER',
       subtitle: 'Cross-platform mobile development',
@@ -29,6 +32,7 @@ export default function HomePage({ showCourse }) {
     },
     {
       id: 'business-builder',
+      path: '/Business-Builder',
       icon: '💼',
       title: 'BUSINESS BUILDER',
       subtitle: 'Turn ideas into profitable products',
@@ -300,7 +304,7 @@ export default function HomePage({ showCourse }) {
                 title={course.title}
                 subtitle={course.subtitle}
                 features={course.features}
-                onClick={() => showCourse(course.id)}
+                to={course.path}
               />
             ))}
           </div>

@@ -31,6 +31,9 @@ export default function Navigation() {
           <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="text-gray-400 hover:text-light transition-colors cursor-pointer">About</a>
           <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-gray-400 hover:text-light transition-colors cursor-pointer">Features</a>
           <a href="#courses" onClick={(e) => scrollToSection(e, 'courses')} className="text-gray-400 hover:text-light transition-colors cursor-pointer">Courses</a>
+          <Link to="/student-portal" className="bg-gradient-to-r from-purple-600 to-purple-500 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all">
+            Student Portal
+          </Link>
           <a href="https://discord.gg/bBGfF5uq9K" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
             Join Discord
           </a>

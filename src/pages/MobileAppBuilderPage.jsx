@@ -150,7 +150,7 @@ export default function MobileAppBuilderPage() {
           <h2 className="section-title mb-6">Ready to Become a Mobile Dev Expert?</h2>
           <p className="section-subtitle mb-12">Join hundreds of students who've transformed their careers</p>
           <a
-            href="https://discord.gg/badyP2uTXP"
+            href="https://discord.gg/bBGfF5uq9K"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary inline-flex"

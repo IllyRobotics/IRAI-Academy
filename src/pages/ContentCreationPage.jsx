@@ -86,7 +86,7 @@ export default function ContentCreationPage() {
         <div className="container text-center">
           <h2 className="section-title mb-6">Ready to Become a Content Creator?</h2>
           <p className="section-subtitle mb-12">Join hundreds of creators who've built thriving audiences and turned their passion into a career</p>
-          <a href="https://discord.gg/badyP2uTXP" target="_blank" rel="noopener noreferrer" className="btn btn-primary inline-flex">
+          <a href="https://discord.gg/bBGfF5uq9K" target="_blank" rel="noopener noreferrer" className="btn btn-primary inline-flex">
             Join Our Discord Community
           </a>
         </div>

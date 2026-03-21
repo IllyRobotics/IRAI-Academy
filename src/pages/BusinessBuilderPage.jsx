@@ -150,7 +150,7 @@ export default function BusinessBuilderPage() {
           <h2 className="section-title mb-6">Ready to Become a Business Builder?</h2>
           <p className="section-subtitle mb-12">Join hundreds of entrepreneurs who've transformed their ideas into successful businesses</p>
           <a
-            href="https://discord.gg/badyP2uTXP"
+            href="https://discord.gg/bBGfF5uq9K"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary inline-flex"

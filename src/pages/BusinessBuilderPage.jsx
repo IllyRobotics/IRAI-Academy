@@ -1,19 +1,20 @@
+import { Link } from 'react-router-dom'
 import ProjectCard from '../components/ProjectCard'
 import PhaseCard from '../components/PhaseCard'
 
-export default function BusinessBuilderPage({ showHome }) {
+export default function BusinessBuilderPage() {
   return (
     <main>
       {/* Back Navigation */}
       <nav className="fixed top-20 left-0 right-0 z-40 border-b border-white/10 bg-dark/95 backdrop-blur-sm">
         <div className="container py-4">
-          <button 
-            onClick={showHome}
+          <Link 
+            to="/"
             className="text-gray hover:text-light transition-colors flex items-center gap-2"
           >
             <span>←</span>
             <span>Back to Home</span>
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -149,7 +150,7 @@ export default function BusinessBuilderPage({ showHome }) {
           <h2 className="section-title mb-6">Ready to Become a Business Builder?</h2>
           <p className="section-subtitle mb-12">Join hundreds of entrepreneurs who've transformed their ideas into successful businesses</p>
           <a
-            href="https://discord.gg/badyP2uTXP"
+            href="https://discord.gg/bBGfF5uq9K"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary inline-flex"

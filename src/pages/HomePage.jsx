@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom'
 import CourseCard from '../components/CourseCard'
 import TeacherCard from '../components/TeacherCard'
 import WebDevelopmentPage from './WebDevelopmentPage'
 import MobileDevelopmentPage from './MobileDevelopmentPage'
 import AIMachineLearningPage from './AIMachineLearningPage'
 
-export default function HomePage({ showCourse }) {
+export default function HomePage() {
   const courses = [
     {
       id: 'web-development',
+      path: '/Web-Development',
       icon: '🌐',
       title: 'WEB DEVELOPMENT',
       subtitle: 'Modern web apps with AI assistance',
@@ -19,7 +21,8 @@ export default function HomePage({ showCourse }) {
       ]
     },
     {
-      id: 'mobile-development',
+      id: 'mobile-app-builder',
+      path: '/Mobile-App-Builder',
       icon: '📱',
       title: 'MOBILE DEVELOPMENT',
       subtitle: 'Cross-platform mobile applications',
@@ -44,6 +47,7 @@ export default function HomePage({ showCourse }) {
     },
     {
       id: 'business-builder',
+      path: '/Business-Builder',
       icon: '💼',
       title: 'BUSINESS BUILDER',
       subtitle: 'Turn ideas into profitable products',
@@ -52,6 +56,19 @@ export default function HomePage({ showCourse }) {
         'Business model validation',
         'Growth strategies',
         'Funding preparation'
+      ]
+    },
+    {
+      id: 'content-creation',
+      path: '/Content-Creation',
+      icon: '🎬',
+      title: 'CONTENT CREATION',
+      subtitle: 'Build your audience and brand',
+      features: [
+        'Video production & editing',
+        'Live streaming mastery',
+        'Social media branding',
+        'Monetization strategies'
       ]
     }
   ]
@@ -307,7 +324,7 @@ export default function HomePage({ showCourse }) {
             <p className="section-subtitle">Specialized tracks for different career goals</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {courses.map(course => (
               <CourseCard
                 key={course.id}
@@ -315,7 +332,7 @@ export default function HomePage({ showCourse }) {
                 title={course.title}
                 subtitle={course.subtitle}
                 features={course.features}
-                onClick={() => showCourse(course.id)}
+                to={course.path}
               />
             ))}
           </div>

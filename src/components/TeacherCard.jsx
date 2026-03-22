@@ -1,109 +1,111 @@
 import { useState } from 'react'
 
 export default function TeacherCard({ teacher }) {
-  const [isFlipped, setIsFlipped] = useState(false)
-
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped)
-  }
-
-  // Get the correct image filename based on teacher name
-  const getImagePath = (teacherName) => {
-    const nameMap = {
-      'ILLYMEDS': 'illymeds-1.jpg',
-      'BABIX': 'babix-1.png',
-      'RUSH': 'rush.jpg'
-    }
-    return `./${nameMap[teacherName] || `${teacherName.toLowerCase()}.jpg`}`
-  }
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div className="relative h-[500px] perspective-1000 flex-shrink-0 w-[420px]">
-      <div 
-        className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-          isFlipped ? 'rotate-y-180' : ''
-        }`}
-      >
-        {/* Front Box */}
-        <div className={`absolute w-full h-full backface-hidden bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-indigo-600/10 border-2 border-indigo-500/50 shadow-2xl transition-all duration-500 overflow-hidden ${
-          isFlipped ? '' : 'hover:border-indigo-400/70 hover:shadow-[0_20px_40px_rgba(99,102,241,0.3),0_10px_20px_rgba(99,102,241,0.2)] hover:translate-y-[-2px]'
-        }`}>
-          {/* Box Top Edge */}
-          <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-r from-indigo-500/40 to-purple-500/40 border-b border-indigo-400/30"></div>
-          
-          {/* Box Content */}
-          <div className="h-full p-6 flex flex-col">
-            {/* Top section with teacher info */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="relative flex-shrink-0">
-                <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-lg"></div>
-                <img 
-                  src={getImagePath(teacher.name)}
-                  alt={teacher.name}
-                  className="relative w-24 h-24 rounded-full object-cover border-4 border-indigo-500/60 shadow-xl"
-                  onError={(e) => {
-                    e.target.src = `https://picsum.photos/seed/${teacher.name}/120/120.jpg`
-                  }}
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="text-2xl font-bold text-white font-space-grotesk tracking-wider truncate drop-shadow-lg">{teacher.name}</h3>
-                <p className="text-indigo-300 text-sm font-medium line-clamp-2 drop-shadow">{teacher.title}</p>
+    <div 
+      className="group relative w-full max-w-md"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Glow effect behind card */}
+      <div className={`absolute -inset-1 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 via-purple-500 to-pink-500'} rounded-2xl blur-lg transition-opacity duration-500 ${isHovered ? 'opacity-40' : 'opacity-0'}`} />
+      
+      <div className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 rounded-2xl border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-white/20">
+        {/* Animated top accent bar */}
+        <div className={`h-1 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 via-purple-500 to-pink-500'} transition-all duration-500 ${isHovered ? 'h-1.5' : ''}`} />
+        
+        {/* Header section */}
+        <div className="p-6 pb-4">
+          <div className="flex items-start gap-5">
+            {/* Profile image with animated ring */}
+            <div className="relative flex-shrink-0">
+              <div className={`absolute -inset-1 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 via-purple-500 to-pink-500'} rounded-full transition-all duration-500 ${isHovered ? 'opacity-100 animate-spin-slow' : 'opacity-60'}`} style={{ animationDuration: '8s' }} />
+              <img 
+                src={teacher.image}
+                alt={teacher.name}
+                className="relative w-20 h-20 rounded-full object-cover border-2 border-slate-800 shadow-xl"
+                onError={(e) => {
+                  e.target.src = `https://ui-avatars.com/api/?name=${teacher.name}&background=6366f1&color=fff&size=160`
+                }}
+              />
+              {/* Online indicator */}
+              <div className="absolute bottom-0 right-0 w-5 h-5 bg-emerald-500 rounded-full border-2 border-slate-800 shadow-lg">
+                <div className="w-full h-full bg-emerald-400 rounded-full animate-ping opacity-75" />
               </div>
             </div>
             
-            {/* Know More Button */}
-            <div className="flex-1 flex items-end">
-              <button 
-                className="bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white px-8 py-3 rounded-xl text-base font-bold transition-all duration-200 transform hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/30 w-full border border-indigo-400/30"
-                onClick={handleFlip}
-              >
-                Know More
-              </button>
+            {/* Name & Title */}
+            <div className="flex-1 min-w-0 pt-1">
+              <h3 className="text-xl font-bold text-white font-space-grotesk tracking-wide">{teacher.name}</h3>
+              <p className={`text-sm font-medium mt-1 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-400 to-purple-400'} bg-clip-text text-transparent leading-snug`}>
+                {teacher.title}
+              </p>
             </div>
           </div>
-          
-          {/* Box Bottom Edge */}
-          <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-indigo-600/40 to-purple-600/40 border-t border-indigo-400/30"></div>
         </div>
 
-        {/* Back Box */}
-        <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-purple-600/30 via-pink-500/20 to-indigo-600/30 border-2 border-purple-500/50 shadow-2xl overflow-hidden">
-          {/* Box Top Edge */}
-          <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-r from-purple-500/40 to-pink-500/40 border-b border-purple-400/30"></div>
-          
-          <div className="h-full p-6 overflow-hidden">
-            <div className="space-y-4 h-full flex flex-col">
-              <div className="bg-white/5 rounded-xl p-6 h-64 overflow-hidden border border-purple-400/20">
-                <p className="text-gray text-base leading-relaxed">{teacher.bio}</p>
-              </div>
-              
-              <div className="flex-shrink-0">
-                <h4 className="text-white font-bold mb-3 text-sm drop-shadow">Expertise:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {teacher.expertise.map((skill, idx) => (
-                    <span 
-                      key={idx} 
-                      className="bg-gradient-to-r from-purple-600/40 to-indigo-600/40 text-purple-100 px-3 py-1 rounded-full text-xs font-bold border border-purple-400/30 shadow-lg"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              <button 
-                className="mt-4 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white px-8 py-3 rounded-xl text-base font-bold transition-all duration-200 transform hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 w-full border border-purple-400/30"
-                onClick={handleFlip}
-              >
-                ← Back
-              </button>
-            </div>
+        {/* Course Badges */}
+        <div className="px-6 pb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 to-purple-500'}`} />
+            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Courses</span>
           </div>
-          
-          {/* Box Bottom Edge */}
-          <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-purple-600/40 to-pink-600/40 border-t border-purple-400/30"></div>
+          <div className="flex flex-wrap gap-2">
+            {teacher.courses.map((course, idx) => (
+              <span 
+                key={idx}
+                className="inline-flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 cursor-default"
+              >
+                <span>{course.icon}</span>
+                <span>{course.label}</span>
+              </span>
+            ))}
+          </div>
         </div>
+        
+        {/* Bio Summary - Expandable */}
+        <div className="px-6 pb-4">
+          <div className={`relative bg-white/[0.03] rounded-xl border border-white/5 p-4 transition-all duration-500 ${isExpanded ? 'max-h-[400px]' : 'max-h-[120px]'} overflow-hidden`}>
+            <p className="text-gray-400 text-sm leading-relaxed">{teacher.bio}</p>
+            {!isExpanded && (
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-slate-900/90 to-transparent pointer-events-none rounded-b-xl" />
+            )}
+          </div>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={`mt-2 text-xs font-semibold transition-all duration-300 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-400 to-purple-400'} bg-clip-text text-transparent hover:opacity-80`}
+          >
+            {isExpanded ? '← Show Less' : 'Read More →'}
+          </button>
+        </div>
+
+        {/* Expertise Tags */}
+        <div className="px-6 pb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 to-purple-500'}`} />
+            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Expertise</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {teacher.expertise.map((skill, idx) => (
+              <span 
+                key={idx} 
+                className={`px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider border transition-all duration-300 hover:scale-105 cursor-default ${
+                  idx % 3 === 0 ? 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20 hover:bg-indigo-500/20' :
+                  idx % 3 === 1 ? 'bg-purple-500/10 text-purple-300 border-purple-500/20 hover:bg-purple-500/20' :
+                  'bg-pink-500/10 text-pink-300 border-pink-500/20 hover:bg-pink-500/20'
+                }`}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom accent */}
+        <div className={`h-0.5 bg-gradient-to-r ${teacher.accentGradient || 'from-indigo-500 via-purple-500 to-pink-500'} opacity-30`} />
       </div>
     </div>
   )

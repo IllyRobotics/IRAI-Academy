@@ -1,5 +1,8 @@
 import CourseCard from '../components/CourseCard'
 import TeacherCard from '../components/TeacherCard'
+import WebDevelopmentPage from './WebDevelopmentPage'
+import MobileDevelopmentPage from './MobileDevelopmentPage'
+import AIMachineLearningPage from './AIMachineLearningPage'
 
 export default function HomePage({ showCourse }) {
   const courses = [
@@ -16,15 +19,27 @@ export default function HomePage({ showCourse }) {
       ]
     },
     {
-      id: 'mobile-app-builder',
+      id: 'mobile-development',
       icon: '📱',
-      title: 'MOBILE APP BUILDER',
-      subtitle: 'Cross-platform mobile development',
+      title: 'MOBILE DEVELOPMENT',
+      subtitle: 'Cross-platform mobile applications',
       features: [
         'React Native expertise',
         'Native device integration',
         'App store optimization',
         'Performance tuning'
+      ]
+    },
+    {
+      id: 'ai-machine-learning',
+      icon: '🤖',
+      title: 'AI & MACHINE LEARNING',
+      subtitle: 'Build intelligent systems that learn and adapt',
+      features: [
+        'Neural networks & deep learning',
+        'Computer vision & NLP',
+        'Predictive analytics',
+        'AI ethics & safety'
       ]
     },
     {
@@ -215,36 +230,67 @@ export default function HomePage({ showCourse }) {
         </div>
       </section>
 
-      {/* Master Teachers Section */}
-      <section className="section bg-white/[0.02]" id="teachers">
-        <div className="container">
+      {/* Meet the Instructors Section */}
+      <section className="section bg-white/[0.02] relative overflow-hidden" id="teachers">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-1/4 left-0 w-72 h-72 bg-indigo-600 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-purple-600 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container relative z-10">
           <div className="text-center mb-16">
-            <h2 className="section-title">Master Teachers</h2>
-            <p className="section-subtitle">Learn from industry experts and AI pioneers</p>
+            <div className="inline-flex items-center gap-3 mb-6">
+              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+              <span className="text-indigo-400 font-semibold text-sm uppercase tracking-wider">Our Team</span>
+              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+            </div>
+            <h2 className="section-title bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Meet the Instructors
+            </h2>
+            <p className="section-subtitle mt-4">The minds behind IRAI Academy's cutting-edge curriculum</p>
           </div>
 
-          <div className="flex gap-12 max-w-7xl mx-auto justify-center px-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {[
               {
                 name: 'ILLYMEDS',
-                title: 'Full-Stack Development & AI Integration',
-                bio: 'Pioneering developer with 15+ years building scalable AI-powered applications. Former architect at leading tech companies, specializing in React, Node.js, and machine learning integration. Passionate about teaching the next generation of developers.',
-                expertise: ['React.js', 'Node.js', 'AI/ML', 'Cloud Architecture', 'DevOps'],
-                icon: '�'
+                title: 'Founder, Illy Robotic Instruments',
+                image: './illymeds-1.jpg',
+                bio: 'Visionary founder of Illy Robotic Instruments and the driving force behind IRAI Academy. A pioneering full-stack developer with deep expertise in AI-powered applications, React, Node.js, and cloud architecture. Illymeds built IRAI Academy to revolutionize developer education by combining hands-on project-based learning with cutting-edge AI tools, empowering the next generation of developers to build portfolio-ready, real-world applications from day one.',
+                courses: [
+                  { icon: '🌐', label: 'Web Development' },
+                  { icon: '🎬', label: 'Content Creator Training' }
+                ],
+                expertise: ['React.js', 'Node.js', 'AI/ML', 'Cloud Architecture', 'Full-Stack', 'DevOps'],
+                accentGradient: 'from-indigo-500 via-blue-500 to-cyan-500'
               },
               {
                 name: 'BABIX',
-                title: 'Mobile App Development & UX Design',
-                bio: 'Award-winning mobile developer with apps featured by Apple and Google. Expert in cross-platform development, performance optimization, and creating intuitive user experiences. Led development of apps with 10M+ downloads.',
-                expertise: ['React Native', 'Flutter', 'iOS/Android', 'UI/UX Design', 'Performance'],
-                icon: '�'
+                title: 'IRAI Chief Architect & Course Instructor',
+                image: './babix.jpg',
+                bio: 'IRAI\'s Chief Architect and a versatile software engineer specializing in full-stack development, mobile applications, and UX design. Babix is the creative engine behind IRAI\'s course content — curating all demonstration videos, hands-on coursework, and help materials that power the academy. Beyond coding, he teaches aspiring creators how to stream, build an audience, and become professional content creators. His mission is making development accessible through clear, engaging instruction.',
+                courses: [
+                  { icon: '🌐', label: 'Web Development' },
+                  { icon: '⚛️', label: 'React.js' },
+                  { icon: '🟢', label: 'Node.js' },
+                  { icon: '📡', label: 'Streaming' },
+                  { icon: '🎬', label: 'Content Creator' }
+                ],
+                expertise: ['React.js', 'Node.js', 'Web Dev', 'Streaming', 'Content Creator'],
+                accentGradient: 'from-purple-500 via-pink-500 to-rose-500'
               },
               {
                 name: 'RUSH',
-                title: 'Business Strategy & No-Code Development',
-                bio: 'Serial entrepreneur who built and sold 3 startups for $50M+. Expert in no-code platforms, growth hacking, and fundraising. Helps developers transition into tech founders and build profitable businesses.',
-                expertise: ['No-Code', 'Business Strategy', 'Growth Hacking', 'Fundraising', 'Product Management'],
-                icon: '💼'
+                title: 'Chief Architect, Illy Rush Gaming (IRG) & Web3 Course Instructor',
+                image: './rush.jpg',
+                bio: 'Chief Architect and engineer of Illy Rush Gaming (IRG), Rush spearheads the design and development of next-generation Web3 gaming experiences. A seasoned Web3 developer with expertise in blockchain technology, smart contracts, and decentralized applications, Rush brings real-world industry experience to the classroom. As IRAI\'s Web3 course instructor, he guides students through the rapidly evolving landscape of decentralized development, tokenomics, and building on-chain applications.',
+                courses: [
+                  { icon: '⛓️', label: 'Web3 Development' },
+                  { icon: '🎮', label: 'Blockchain Gaming' }
+                ],
+                expertise: ['Web3', 'Solidity', 'Smart Contracts', 'DApps', 'Blockchain', 'Game Architecture'],
+                accentGradient: 'from-emerald-500 via-teal-500 to-cyan-500'
               }
             ].map((teacher, idx) => (
               <TeacherCard key={idx} teacher={teacher} />

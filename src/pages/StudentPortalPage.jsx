@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDiscordAuth } from '../context/DiscordAuthContext'
+import { usePayment } from '../context/PaymentContext'
 import { curriculumData, roleToCurriculum } from '../data/curriculumData'
 import CurriculumView from '../components/CurriculumView'
+import CourseEnrollment from '../components/CourseEnrollment'
 import NoAccessPage from '../components/NoAccessPage'
 
 export default function StudentPortalPage() {
@@ -20,6 +22,7 @@ export default function StudentPortalPage() {
     ROLE_LABELS,
   } = useDiscordAuth()
 
+  const { isEnrolled } = usePayment()
   const [activeFilter, setActiveFilter] = useState('all')
 
   // Determine which curricula to show
@@ -32,11 +35,18 @@ export default function StudentPortalPage() {
       return key ? [curriculumData[key]] : Object.values(curriculumData)
     }
 
-    // Student: show only their assigned curriculum
-    return studentRoles
+    // Student: show their assigned curricula plus available courses to enroll in
+    const assignedCurricula = studentRoles
       .map(roleId => roleToCurriculum[roleId])
       .filter(Boolean)
       .map(key => curriculumData[key])
+
+    // Add all available courses for enrollment
+    const availableCourses = Object.values(curriculumData).filter(course => 
+      !assignedCurricula.some(assigned => assigned.id === course.id)
+    )
+
+    return [...assignedCurricula, ...availableCourses]
   }
 
   // --- Loading State ---
@@ -219,9 +229,24 @@ export default function StudentPortalPage() {
       {/* Curriculum Content */}
       <section className="pb-20">
         <div className="container">
-          {visibleCurricula.map(curriculum => (
-            <CurriculumView key={curriculum.id} curriculum={curriculum} isInstructor={isInstructor} />
-          ))}
+          {visibleCurricula.map(curriculum => {
+            const isAssignedToStudent = studentRoles.some(roleId => roleToCurriculum[roleId] === curriculum.id)
+            const hasEnrolled = isEnrolled(curriculum.id)
+            const canAccess = isAssignedToStudent || hasEnrolled
+
+            return (
+              <div key={curriculum.id} className="mb-16">
+                {canAccess ? (
+                  <CurriculumView 
+                    curriculum={curriculum} 
+                    isInstructor={isInstructor} 
+                  />
+                ) : (
+                  <CourseEnrollment courseId={curriculum.id} />
+                )}
+              </div>
+            )
+          })}
         </div>
       </section>
 

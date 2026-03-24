@@ -13,6 +13,8 @@ export const curriculumData = {
     bgClass: 'from-indigo-600 to-indigo-500',
     borderClass: 'border-indigo-500/30',
     subtitle: 'Master modern web development with AI-driven workflows and cutting-edge technologies',
+    price: 299.99,
+    solanaPrice: 0.5,
     projects: [
       {
         icon: '💼',
@@ -146,6 +148,8 @@ export const curriculumData = {
     bgClass: 'from-pink-600 to-pink-500',
     borderClass: 'border-pink-500/30',
     subtitle: 'Master cross-platform mobile development with AI-driven workflows and cutting-edge technologies',
+    price: 349.99,
+    solanaPrice: 0.6,
     projects: [
       {
         icon: '✅',
@@ -279,6 +283,8 @@ export const curriculumData = {
     bgClass: 'from-rose-600 to-rose-500',
     borderClass: 'border-rose-500/30',
     subtitle: 'Master content creation, streaming, and audience building with AI-driven workflows',
+    price: 249.99,
+    solanaPrice: 0.4,
     projects: [
       {
         icon: '🎥',
@@ -412,6 +418,8 @@ export const curriculumData = {
     bgClass: 'from-cyan-600 to-cyan-500',
     borderClass: 'border-cyan-500/30',
     subtitle: 'Master entrepreneurship with AI-driven strategies and cutting-edge business tools',
+    price: 399.99,
+    solanaPrice: 0.7,
     projects: [
       {
         icon: '💡',

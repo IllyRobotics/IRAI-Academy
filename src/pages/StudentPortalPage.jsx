@@ -5,7 +5,10 @@ import { usePayment } from '../context/PaymentContext'
 import { curriculumData, roleToCurriculum } from '../data/curriculumData'
 import CurriculumView from '../components/CurriculumView'
 import CourseEnrollment from '../components/CourseEnrollment'
+import ClassStatus from '../components/ClassStatus'
+import InstructorControls from '../components/InstructorControls'
 import NoAccessPage from '../components/NoAccessPage'
+import { useClassStatus } from '../hooks/useClassStatus'
 
 export default function StudentPortalPage() {
   const {
@@ -24,6 +27,13 @@ export default function StudentPortalPage() {
 
   const { isEnrolled } = usePayment()
   const [activeFilter, setActiveFilter] = useState('all')
+
+  // Get enrolled course IDs for class status tracking
+  const enrolledCourseIds = studentRoles
+    .map(roleId => roleToCurriculum[roleId])
+    .filter(Boolean)
+
+  const { classStatuses, loading: statusLoading, error: statusError, refreshStatuses } = useClassStatus(enrolledCourseIds)
 
   // Determine which curricula to show
   function getVisibleCurricula() {
@@ -237,10 +247,35 @@ export default function StudentPortalPage() {
             return (
               <div key={curriculum.id} className="mb-16">
                 {canAccess ? (
-                  <CurriculumView 
-                    curriculum={curriculum} 
-                    isInstructor={isInstructor} 
-                  />
+                  <>
+                    {/* Instructor Controls */}
+                    {isInstructor && (
+                      <div className="mb-6">
+                        <InstructorControls 
+                          courseId={curriculum.id}
+                          courseTitle={curriculum.title}
+                          onStatusUpdate={refreshStatuses}
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Class Status for enrolled courses */}
+                    {isAssignedToStudent && (
+                      <div className="mb-6">
+                        <ClassStatus 
+                          courseId={curriculum.id}
+                          status={classStatuses[curriculum.id]}
+                          loading={statusLoading}
+                          onRefresh={() => refreshStatuses()}
+                        />
+                      </div>
+                    )}
+                    
+                    <CurriculumView 
+                      curriculum={curriculum} 
+                      isInstructor={isInstructor} 
+                    />
+                  </>
                 ) : (
                   <CourseEnrollment courseId={curriculum.id} />
                 )}

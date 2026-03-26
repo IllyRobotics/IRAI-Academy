@@ -4,7 +4,7 @@ const DiscordAuthContext = createContext(null)
 
 // Discord OAuth2 Configuration — IRAI Academy application
 const DISCORD_CLIENT_ID = '1483605684691009707'
-const REDIRECT_URI = `${window.location.origin}${import.meta.env.BASE_URL}student-portal/`
+const REDIRECT_URI = `${window.location.origin}/IRAI-Academy/student-portal/`
 const GUILD_ID = '1408508528846704794'
 
 // Discord Role IDs from guild

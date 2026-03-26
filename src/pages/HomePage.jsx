@@ -268,7 +268,7 @@ export default function HomePage() {
             <p className="section-subtitle mt-4">The minds behind IRAI Academy's cutting-edge curriculum</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: 'ILLYMEDS',
@@ -296,18 +296,6 @@ export default function HomePage() {
                 ],
                 expertise: ['React.js', 'Node.js', 'Web Dev', 'Streaming', 'Content Creator'],
                 accentGradient: 'from-purple-500 via-pink-500 to-rose-500'
-              },
-              {
-                name: 'RUSH',
-                title: 'Chief Architect, Illy Rush Gaming (IRG) & Web3 Course Instructor',
-                image: './rush.jpg',
-                bio: 'Chief Architect and engineer of Illy Rush Gaming (IRG), Rush spearheads the design and development of next-generation Web3 gaming experiences. A seasoned Web3 developer with expertise in blockchain technology, smart contracts, and decentralized applications, Rush brings real-world industry experience to the classroom. As IRAI\'s Web3 course instructor, he guides students through the rapidly evolving landscape of decentralized development, tokenomics, and building on-chain applications.',
-                courses: [
-                  { icon: '⛓️', label: 'Web3 Development' },
-                  { icon: '🎮', label: 'Blockchain Gaming' }
-                ],
-                expertise: ['Web3', 'Solidity', 'Smart Contracts', 'DApps', 'Blockchain', 'Game Architecture'],
-                accentGradient: 'from-emerald-500 via-teal-500 to-cyan-500'
               }
             ].map((teacher, idx) => (
               <TeacherCard key={idx} teacher={teacher} />

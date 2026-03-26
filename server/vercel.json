@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "discord-bot-server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/discord-bot-server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/discord-bot-server.js"
+    }
+  ],
+  "env": {
+    "DISCORD_BOT_TOKEN": "@discord-bot-token"
+  }
+}

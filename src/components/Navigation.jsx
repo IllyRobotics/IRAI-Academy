@@ -18,7 +18,7 @@ export default function Navigation() {
       <div className="container flex justify-between items-center h-20">
         <Link to="/" className="flex items-center gap-4">
           <img 
-            src={import.meta.env.BASE_URL + 'IRAILOGO.jpg'} 
+            src={`${import.meta.env.BASE_URL}IRAILOGO.jpg`} 
             alt="IRAI Academy" 
             className="h-12 w-auto cursor-pointer"
           />
@@ -34,6 +34,9 @@ export default function Navigation() {
           <a href="#courses" onClick={(e) => scrollToSection(e, 'courses')} className="text-gray-400 hover:text-light transition-colors cursor-pointer">Courses</a>
           <Link to="/student-portal" className="bg-gradient-to-r from-purple-600 to-purple-500 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/30 transition-all">
             Student Portal
+          </Link>
+          <Link to="/instructor-dashboard" className="bg-gradient-to-r from-green-600 to-green-500 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all">
+            Instructor Dashboard
           </Link>
           <a href="https://discord.gg/bBGfF5uq9K" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
             Join Discord
